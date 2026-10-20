@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Tabla automatizada de remuneraciones de VIGENTE con IESS, décimos y costo mensual de la empresa.">
-  <title>VIGENTE | Tabla de remuneraciones</title>
+  <meta name="description" content="Escalas salariales y tabla automatizada de remuneraciones de VIGENTE con IESS, décimos y costo laboral modelado.">
+  <title>VIGENTE | Escalas y remuneraciones</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,152 +14,66 @@
 <body data-page="remuneraciones">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="VIGENTE, inicio">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span>VIGENTE</span>
-    </a>
-    <nav class="site-nav" aria-label="Navegación principal">
-      <a href="index.html">Organigrama</a>
-      <a href="remuneraciones.html" aria-current="page">Remuneraciones</a>
-    </nav>
+    <a class="brand" href="index.html" aria-label="VIGENTE, inicio"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>VIGENTE</span></a>
+    <nav class="site-nav" aria-label="Navegación principal"><a href="index.html">Organización</a><a href="remuneraciones.html" aria-current="page">Remuneraciones</a></nav>
   </header>
 
   <main id="contenido">
     <section class="payroll-intro" aria-labelledby="titulo-principal">
-      <div>
-        <p class="context-line">Modelo mensual editable · Ecuador 2026</p>
-        <h1 id="titulo-principal">El costo del equipo,<br>sin fórmulas ocultas.</h1>
-        <p class="lead">Cambie el número de trabajadores o el sueldo mensual. La tabla actualiza aportes, beneficios, totales y el ejemplo explicado.</p>
-      </div>
-      <aside class="total-display" aria-live="polite">
-        <span>Costo mensual de personal</span>
-        <strong id="grand-total">$0,00</strong>
-        <small id="annual-total">$0,00 al año</small>
-      </aside>
+      <div><p class="context-line">Modelo mensual editable · empresa estructurada</p><h1 id="titulo-principal">Escalas claras. Costos verificables.</h1><p class="lead">La política salarial ordena 17 cargos en cinco bandas. Cambie dotación, sueldo o tasas y el modelo actualiza toda la nómina.</p></div>
+      <aside class="total-display" aria-live="polite"><span>Costo laboral mensual modelado</span><strong id="grand-total">$0,00</strong><small id="annual-total">$0,00 al año</small></aside>
     </section>
 
     <section class="assumptions" aria-labelledby="titulo-supuestos">
-      <div class="assumption-heading">
-        <h2 id="titulo-supuestos">Supuestos de cálculo</h2>
-        <p>Los porcentajes son editables para que el modelo siga siendo útil si cambian.</p>
-      </div>
+      <div class="assumption-heading"><h2 id="titulo-supuestos">Supuestos de cálculo</h2><p>Valores oficiales y editables. Un dato fuera de rango se marca y detiene los totales.</p></div>
       <label><span>Aporte personal IESS</span><span class="input-unit"><input id="rate-personal" type="number" min="0" max="100" step="0.01" value="9.45" data-default="9.45" inputmode="decimal"><b>%</b></span></label>
       <label><span>Aporte patronal IESS</span><span class="input-unit"><input id="rate-employer" type="number" min="0" max="100" step="0.01" value="11.15" data-default="11.15" inputmode="decimal"><b>%</b></span></label>
-      <label><span>SBU 2026</span><span class="input-unit currency"><b>$</b><input id="sbu" type="number" min="0" step="1" value="482" data-default="482" inputmode="decimal"></span></label>
+      <label><span>SBU 2026</span><span class="input-unit currency"><b>$</b><input id="sbu" type="number" min="1" max="10000" step="1" value="482" data-default="482" inputmode="decimal"></span></label>
+    </section>
+
+    <section class="section-block salary-scale-section" aria-labelledby="titulo-escalas">
+      <div class="section-heading"><h2 id="titulo-escalas">Escalas salariales</h2><p>Las bandas son una política interna propuesta. Permiten pagar por responsabilidad y complejidad, con espacio para progresión sin cambiar de cargo.</p></div>
+      <div class="scale-list" aria-label="Cinco bandas salariales mensuales">
+        <article data-scale="E"><div><span class="scale-code">E</span><h3>Ejecutiva</h3><p>Gerencia General</p></div><dl><div><dt>Mínimo</dt><dd>$1.800</dd></div><div><dt>Punto medio</dt><dd>$2.200</dd></div><div><dt>Máximo</dt><dd>$2.600</dd></div></dl></article>
+        <article data-scale="L3"><div><span class="scale-code">L3</span><h3>Liderazgo</h3><p>Direcciones y jefaturas</p></div><dl><div><dt>Mínimo</dt><dd>$1.300</dd></div><div><dt>Punto medio</dt><dd>$1.550</dd></div><div><dt>Máximo</dt><dd>$1.800</dd></div></dl></article>
+        <article data-scale="L2"><div><span class="scale-code">L2</span><h3>Especialista sénior</h3><p>Ingeniería, DevOps y Producto</p></div><dl><div><dt>Mínimo</dt><dd>$950</dd></div><div><dt>Punto medio</dt><dd>$1.150</dd></div><div><dt>Máximo</dt><dd>$1.350</dd></div></dl></article>
+        <article data-scale="L1"><div><span class="scale-code">L1</span><h3>Profesional</h3><p>Analistas y especialistas</p></div><dl><div><dt>Mínimo</dt><dd>$650</dd></div><div><dt>Punto medio</dt><dd>$800</dd></div><div><dt>Máximo</dt><dd>$950</dd></div></dl></article>
+        <article data-scale="O"><div><span class="scale-code">O</span><h3>Operativa</h3><p>Soporte y asistencia</p></div><dl><div><dt>Mínimo</dt><dd>$482</dd></div><div><dt>Punto medio</dt><dd>$575</dd></div><div><dt>Máximo</dt><dd>$650</dd></div></dl></article>
+      </div>
+      <p class="scale-note">Criterio: experiencia, autonomía, impacto de decisiones y escasez técnica. Ninguna remuneración activa debe quedar por debajo del SBU.</p>
     </section>
 
     <section class="section-block payroll-section" aria-labelledby="titulo-tabla">
-      <div class="section-heading table-heading">
-        <div>
-          <h2 id="titulo-tabla">Tabla de remuneraciones</h2>
-          <p>Las celdas azules son entradas. Los demás valores se calculan automáticamente.</p>
-        </div>
-        <div class="table-actions">
-          <button class="button-secondary" id="reset-table" type="button">Restablecer</button>
-          <button class="button-primary" id="download-excel" type="button">Descargar para Excel</button>
-        </div>
-      </div>
-
+      <div class="section-heading table-heading"><div><h2 id="titulo-tabla">Tabla de remuneraciones</h2><p>Las celdas azules son editables. La escala orienta el sueldo, pero el cálculo usa el valor ingresado.</p></div><div class="table-actions"><button class="button-secondary" id="apply-midpoints" type="button">Aplicar puntos medios</button><button class="button-secondary" id="reset-table" type="button">Restablecer</button><button class="button-primary" id="download-excel" type="button">Descargar para Excel</button></div></div>
+      <div id="validation-message" class="validation-message" role="alert" hidden>Hay valores vacíos o fuera de rango. Corrija las celdas marcadas para recuperar los totales.</div>
       <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla editable de remuneraciones; desplácese horizontalmente en pantallas pequeñas">
         <table class="payroll-table">
-          <thead>
-            <tr>
-              <th scope="col">Cargo</th>
-              <th scope="col">Trabajadores</th>
-              <th scope="col">Sueldo mensual<br><small>por persona</small></th>
-              <th scope="col">IESS personal<br><small>9,45% · total</small></th>
-              <th scope="col">IESS patronal<br><small>11,15% · total</small></th>
-              <th scope="col">Décimo tercero<br><small>provisión mensual</small></th>
-              <th scope="col">Décimo cuarto<br><small>provisión mensual</small></th>
-              <th scope="col">Costo mensual<br><small>para la empresa</small></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-role="Dirección técnica y estrategia">
-              <th scope="row"><span>Dirección técnica y estrategia</span><small>Socio programador</small></th>
-              <td><input class="workers-input" aria-label="Trabajadores en Dirección técnica y estrategia" type="number" min="0" step="1" value="1" data-default="1" inputmode="numeric"></td>
-              <td><span class="money-input"><b>$</b><input class="salary-input" aria-label="Sueldo de Dirección técnica y estrategia" type="number" min="0" step="10" value="1200" data-default="1200" inputmode="decimal"></span></td>
-              <td data-output="personal">—</td><td data-output="employer">—</td><td data-output="thirteenth">—</td><td data-output="fourteenth">—</td><td class="cost-cell" data-output="cost">—</td>
-            </tr>
-            <tr data-role="Dirección de producto e ingeniería">
-              <th scope="row"><span>Dirección de producto e ingeniería</span><small>Socio programador</small></th>
-              <td><input class="workers-input" aria-label="Trabajadores en Dirección de producto e ingeniería" type="number" min="0" step="1" value="1" data-default="1" inputmode="numeric"></td>
-              <td><span class="money-input"><b>$</b><input class="salary-input" aria-label="Sueldo de Dirección de producto e ingeniería" type="number" min="0" step="10" value="1050" data-default="1050" inputmode="decimal"></span></td>
-              <td data-output="personal">—</td><td data-output="employer">—</td><td data-output="thirteenth">—</td><td data-output="fourteenth">—</td><td class="cost-cell" data-output="cost">—</td>
-            </tr>
-            <tr data-role="Diseño de experiencia UX/UI">
-              <th scope="row"><span>Diseño de experiencia UX/UI</span><small>Rol complementario</small></th>
-              <td><input class="workers-input" aria-label="Trabajadores en Diseño de experiencia UX/UI" type="number" min="0" step="1" value="1" data-default="1" inputmode="numeric"></td>
-              <td><span class="money-input"><b>$</b><input class="salary-input" aria-label="Sueldo de Diseño de experiencia UX/UI" type="number" min="0" step="10" value="700" data-default="700" inputmode="decimal"></span></td>
-              <td data-output="personal">—</td><td data-output="employer">—</td><td data-output="thirteenth">—</td><td data-output="fourteenth">—</td><td class="cost-cell" data-output="cost">—</td>
-            </tr>
-            <tr data-role="Marketing y éxito del cliente">
-              <th scope="row"><span>Marketing y éxito del cliente</span><small>Rol complementario</small></th>
-              <td><input class="workers-input" aria-label="Trabajadores en Marketing y éxito del cliente" type="number" min="0" step="1" value="1" data-default="1" inputmode="numeric"></td>
-              <td><span class="money-input"><b>$</b><input class="salary-input" aria-label="Sueldo de Marketing y éxito del cliente" type="number" min="0" step="10" value="650" data-default="650" inputmode="decimal"></span></td>
-              <td data-output="personal">—</td><td data-output="employer">—</td><td data-output="thirteenth">—</td><td data-output="fourteenth">—</td><td class="cost-cell" data-output="cost">—</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr><th scope="row">Total del equipo</th><td id="total-workers">—</td><td id="total-salary">—</td><td id="total-personal">—</td><td id="total-employer">—</td><td id="total-thirteenth">—</td><td id="total-fourteenth">—</td><td id="total-cost">—</td></tr>
-          </tfoot>
+          <thead><tr><th scope="col">Área y cargo</th><th scope="col">Escala</th><th scope="col">Trabajadores</th><th scope="col">Sueldo mensual<br><small>por persona</small></th><th scope="col">IESS personal<br><small>total</small></th><th scope="col">IESS patronal<br><small>total</small></th><th scope="col">Décimo tercero<br><small>provisión mensual</small></th><th scope="col">Décimo cuarto<br><small>provisión mensual</small></th><th scope="col">Costo modelado<br><small>empresa</small></th></tr></thead>
+          <tbody id="payroll-body"></tbody>
+          <tfoot><tr><th scope="row" colspan="2">Total de la empresa</th><td id="total-workers">—</td><td id="total-salary">—</td><td id="total-personal">—</td><td id="total-employer">—</td><td id="total-thirteenth">—</td><td id="total-fourteenth">—</td><td id="total-cost">—</td></tr></tfoot>
         </table>
       </div>
-      <p class="table-note"><strong>Importante:</strong> el aporte personal se descuenta al trabajador y se muestra para verificar su rol en la nómina; no se resta del costo empresarial porque ya forma parte del sueldo bruto.</p>
+      <p class="table-note"><strong>Alcance:</strong> el costo modelado suma sueldo bruto, IESS patronal y provisiones de décimo tercero y décimo cuarto. El IESS personal es una retención del trabajador. Fondo de reserva, vacaciones, horas extra, indemnizaciones, equipos, software e impuestos deben presupuestarse por separado.</p>
     </section>
 
     <section class="calculation-section" aria-labelledby="titulo-ejemplo">
-      <div class="calculation-copy">
-        <h2 id="titulo-ejemplo">Cálculo completo de un trabajador</h2>
-        <p>Seleccione un cargo para ver el procedimiento con sus valores actuales.</p>
-        <label class="select-label" for="example-role">Cargo del ejemplo</label>
-        <select id="example-role">
-          <option value="0">Dirección técnica y estrategia</option>
-          <option value="1">Dirección de producto e ingeniería</option>
-          <option value="2">Diseño de experiencia UX/UI</option>
-          <option value="3">Marketing y éxito del cliente</option>
-        </select>
-      </div>
+      <div class="calculation-copy"><h2 id="titulo-ejemplo">Cálculo completo de un trabajador</h2><p>Seleccione cualquier cargo para auditar el procedimiento con sus valores actuales.</p><label class="select-label" for="example-role">Cargo del ejemplo</label><select id="example-role"></select></div>
       <ol class="formula-stack" id="formula-stack">
         <li><span>Aporte personal IESS</span><code id="formula-personal">—</code><strong id="example-personal">—</strong></li>
         <li><span>Aporte patronal IESS</span><code id="formula-employer">—</code><strong id="example-employer">—</strong></li>
         <li><span>Décimo tercero mensual</span><code id="formula-thirteenth">—</code><strong id="example-thirteenth">—</strong></li>
         <li><span>Décimo cuarto mensual</span><code id="formula-fourteenth">—</code><strong id="example-fourteenth">—</strong></li>
-        <li class="formula-total"><span>Costo mensual para la empresa</span><code id="formula-cost">—</code><strong id="example-cost">—</strong></li>
+        <li class="formula-total"><span>Costo mensual modelado por persona</span><code id="formula-cost">—</code><strong id="example-cost">—</strong></li>
       </ol>
     </section>
 
     <section class="sustainability-section" aria-labelledby="titulo-sostenibilidad">
-      <div class="sustainability-analysis">
-        <h2 id="titulo-sostenibilidad">¿Es sostenible esta estructura?</h2>
-        <p><strong>Sí, como equipo inicial enfocado.</strong> Cuatro personas cubren tecnología, producto, experiencia y mercado sin cargos administrativos prematuros. El riesgo está en contratar los cuatro puestos a tiempo completo antes de validar ingresos recurrentes.</p>
-        <p>El costo mensual mostrado debe compararse con ingresos estables. Además conviene reservar presupuesto para fondo de reserva cuando corresponda, vacaciones, equipos, servicios digitales, ventas e impuestos; esos rubros no están incluidos en esta tabla académica.</p>
-      </div>
-      <div class="break-even">
-        <h3>Escenario ilustrativo de equilibrio</h3>
-        <label for="revenue-per-client">Ingreso mensual promedio por cliente</label>
-        <span class="money-input wide"><b>$</b><input id="revenue-per-client" type="number" min="1" step="1" value="29" data-default="29" inputmode="decimal"></span>
-        <p>VIGENTE necesitaría aproximadamente <strong id="clients-needed">—</strong> clientes activos para cubrir únicamente este costo de personal.</p>
-        <small>No es una proyección de ventas; es una relación matemática editable.</small>
-      </div>
+      <div class="sustainability-analysis"><h2 id="titulo-sostenibilidad">Sostenibilidad del personal</h2><p><strong>La estructura es funcional para una empresa con clientes activos y operación continua.</strong> Tecnología representa la mayor inversión porque mantiene el producto; Operaciones sostiene implementación y servicio; Comercial alimenta el crecimiento; Administración controla recursos y personas.</p><p>La sostenibilidad depende de que los ingresos recurrentes cubran el costo laboral modelado y los gastos no incluidos. Si la empresa aún no alcanza ese nivel, puede incorporar vacantes por fases sin alterar la estructura objetivo.</p></div>
+      <div class="break-even"><h3>Escenario ilustrativo de equilibrio</h3><label for="revenue-per-client">Ingreso mensual promedio por cliente</label><span class="money-input wide"><b>$</b><input id="revenue-per-client" type="number" min="1" max="1000000" step="1" value="79" data-default="79" inputmode="decimal"></span><p>Se requieren aproximadamente <strong id="clients-needed">—</strong> clientes activos para cubrir únicamente el costo laboral modelado.</p><small>No es una proyección de ventas. No incluye otros gastos de la empresa.</small></div>
     </section>
 
-    <section class="method-section" aria-labelledby="titulo-metodo">
-      <h2 id="titulo-metodo">Cómo se calcula</h2>
-      <div class="method-grid">
-        <div><h3>IESS personal</h3><p>Trabajadores × sueldo × tasa personal. Es una retención al colaborador.</p></div>
-        <div><h3>IESS patronal</h3><p>Trabajadores × sueldo × tasa patronal. Lo cubre la empresa.</p></div>
-        <div><h3>Décimo tercero</h3><p>Trabajadores × sueldo ÷ 12. Es la provisión mensual de una remuneración anual.</p></div>
-        <div><h3>Décimo cuarto</h3><p>Trabajadores × SBU ÷ 12. Usa el salario básico vigente, no el sueldo individual.</p></div>
-        <div class="method-total"><h3>Costo empresa</h3><p>Trabajadores × (sueldo + IESS patronal + décimo tercero + décimo cuarto).</p></div>
-      </div>
-      <p class="sources">Fuentes oficiales consultadas: <a href="https://www.iess.gob.ec/es/web/guest/preguntas-frecuentes-afiliacion" target="_blank" rel="noreferrer">porcentajes de aportación del IESS</a>, <a href="https://www.trabajo.gob.ec/wp-content/uploads/downloads/2026/01/ACUERDO-MINISTERIAL-MDT-2025-195.pdf" target="_blank" rel="noreferrer">SBU 2026 de USD 482</a> y <a href="https://www.trabajo.gob.ec/29-cual-es-el-plazo-y-como-se-debe-realizar-la-solicitud-para-la-acumulacion-del-pago-de-la-decima-tercera-y-decima-cuarta-remuneracion/" target="_blank" rel="noreferrer">reglas de décimos</a>.</p>
-    </section>
+    <section class="method-section" aria-labelledby="titulo-metodo"><h2 id="titulo-metodo">Cómo se calcula</h2><div class="method-grid"><div><h3>IESS personal</h3><p>Trabajadores × sueldo × tasa personal. Es una retención al colaborador.</p></div><div><h3>IESS patronal</h3><p>Trabajadores × sueldo × tasa patronal. Lo cubre la empresa.</p></div><div><h3>Décimo tercero</h3><p>Trabajadores × sueldo ÷ 12. Provisión mensual de una remuneración anual.</p></div><div><h3>Décimo cuarto</h3><p>Trabajadores × SBU ÷ 12. Usa el salario básico, no el sueldo individual.</p></div><div class="method-total"><h3>Costo laboral modelado</h3><p>Trabajadores × (sueldo + IESS patronal + décimo tercero + décimo cuarto).</p></div></div><p class="sources">Fuentes oficiales: <a href="https://www.iess.gob.ec/es/web/guest/preguntas-frecuentes-afiliacion" target="_blank" rel="noreferrer">tasas IESS</a>, <a href="https://www.trabajo.gob.ec/wp-content/uploads/downloads/2026/01/ACUERDO-MINISTERIAL-MDT-2025-195.pdf" target="_blank" rel="noreferrer">SBU 2026 de USD 482</a> y <a href="https://www.trabajo.gob.ec/29-cual-es-el-plazo-y-como-se-debe-realizar-la-solicitud-para-la-acumulacion-del-pago-de-la-decima-tercera-y-decima-cuarta-remuneracion/" target="_blank" rel="noreferrer">décimos</a>.</p></section>
   </main>
-
-  <footer class="site-footer">
-    <span>VIGENTE · Modelo académico con supuestos editables</span>
-    <a href="index.html">Volver al organigrama</a>
-  </footer>
+  <footer class="site-footer"><span>VIGENTE · Modelo empresarial con escalas salariales</span><a href="index.html">Volver a organización</a></footer>
 </body>
 </html>

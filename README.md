@@ -8,8 +8,9 @@ Abra `index.html` en un navegador. La segunda página está en `remuneraciones.h
 
 ## Contenido
 
-- Organigrama funcional de cuatro personas, con autoridad, dependencia y función principal.
-- Tabla de remuneraciones editable con IESS personal, IESS patronal, décimo tercero, décimo cuarto y costo empresarial.
+- Organigrama funcional de una empresa estructurada con 22 personas, 17 cargos y cuatro áreas.
+- Cinco escalas salariales internas con mínimo, punto medio y máximo.
+- Tabla de remuneraciones editable con IESS personal, IESS patronal, décimo tercero, décimo cuarto y costo laboral modelado.
 - Desarrollo completo del cálculo de un trabajador.
 - Análisis breve de sostenibilidad.
 - Descarga de un CSV compatible con Excel que incluye fórmulas recalculables.
@@ -19,6 +20,6 @@ Abra `index.html` en un navegador. La segunda página está en `remuneraciones.h
 - SBU Ecuador 2026: USD 482.
 - Aporte personal IESS: 9,45%.
 - Aporte patronal IESS: 11,15%.
-- El costo mensual de la empresa suma sueldo bruto, IESS patronal y provisiones mensuales de décimo tercero y décimo cuarto.
+- El costo laboral modelado suma sueldo bruto, IESS patronal y provisiones mensuales de décimo tercero y décimo cuarto.
 
 Los valores pueden cambiarse en la interfaz. El modelo es académico y no incluye fondo de reserva, vacaciones, horas extra, indemnizaciones, equipos, software ni impuestos.
