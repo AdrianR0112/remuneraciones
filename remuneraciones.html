@@ -25,10 +25,10 @@
     </section>
 
     <section class="assumptions" aria-labelledby="titulo-supuestos">
-      <div class="assumption-heading"><h2 id="titulo-supuestos">Supuestos de cálculo</h2><p>Valores oficiales y editables. Un dato fuera de rango se marca y detiene los totales.</p></div>
+      <div class="assumption-heading"><h2 id="titulo-supuestos">Supuestos de cálculo</h2><p>Las tasas son editables. El SBU 2026 se mantiene como referencia oficial del ejercicio.</p></div>
       <label><span>Aporte personal IESS</span><span class="input-unit"><input id="rate-personal" type="number" min="0" max="100" step="0.01" value="9.45" data-default="9.45" inputmode="decimal"><b>%</b></span></label>
       <label><span>Aporte patronal IESS</span><span class="input-unit"><input id="rate-employer" type="number" min="0" max="100" step="0.01" value="11.15" data-default="11.15" inputmode="decimal"><b>%</b></span></label>
-      <label><span>SBU 2026</span><span class="input-unit currency"><b>$</b><input id="sbu" type="number" min="1" max="10000" step="1" value="482" data-default="482" inputmode="decimal"></span></label>
+      <label><span>SBU oficial 2026</span><span class="input-unit currency"><b>$</b><input id="sbu" type="number" min="1" max="10000" step="1" value="482" data-default="482" inputmode="decimal" readonly></span></label>
     </section>
 
     <section class="section-block salary-scale-section" aria-labelledby="titulo-escalas">
@@ -46,6 +46,7 @@
     <section class="section-block payroll-section" aria-labelledby="titulo-tabla">
       <div class="section-heading table-heading"><div><h2 id="titulo-tabla">Tabla de remuneraciones</h2><p>Las celdas azules son editables. La escala orienta el sueldo, pero el cálculo usa el valor ingresado.</p></div><div class="table-actions"><button class="button-secondary" id="apply-midpoints" type="button">Aplicar puntos medios</button><button class="button-secondary" id="reset-table" type="button">Restablecer</button><button class="button-primary" id="download-excel" type="button">Descargar para Excel</button></div></div>
       <div id="validation-message" class="validation-message" role="alert" hidden>Hay valores vacíos o fuera de rango. Corrija las celdas marcadas para recuperar los totales.</div>
+      <p class="mobile-scroll-hint">Deslice horizontalmente para consultar todas las columnas. La primera columna permanece visible.</p>
       <div class="table-wrap" tabindex="0" role="region" aria-label="Tabla editable de remuneraciones; desplácese horizontalmente en pantallas pequeñas">
         <table class="payroll-table">
           <thead><tr><th scope="col">Área y cargo</th><th scope="col">Escala</th><th scope="col">Trabajadores</th><th scope="col">Sueldo mensual<br><small>por persona</small></th><th scope="col">IESS personal<br><small>total</small></th><th scope="col">IESS patronal<br><small>total</small></th><th scope="col">Décimo tercero<br><small>provisión mensual</small></th><th scope="col">Décimo cuarto<br><small>provisión mensual</small></th><th scope="col">Costo modelado<br><small>empresa</small></th></tr></thead>

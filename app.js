@@ -36,6 +36,7 @@
   const whole = new Intl.NumberFormat("es-EC", { maximumFractionDigits: 0 });
   const payrollBody = $("#payroll-body");
   const exampleSelect = $("#example-role");
+  const downloadButton = $("#download-excel");
 
   function renderRows() {
     payrollBody.innerHTML = roles.map((item, index) => `
@@ -143,6 +144,7 @@
     const revenue = readNumber(revenueInput, { min: 1, max: 1000000 });
     $("#clients-needed").textContent = allValid && revenue.valid ? whole.format(Math.ceil(totals.cost / revenue.value)) : "—";
     $("#validation-message").hidden = allValid && revenue.valid;
+    downloadButton.disabled = !(allValid && revenue.valid);
     updateExample(calculations, assumptions);
   }
 
@@ -159,10 +161,11 @@
 
   function csvCell(value) {
     const text = String(value ?? "");
-    return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+    return /[;"\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
   }
 
   function downloadExcelCsv() {
+    if (downloadButton.disabled) return;
     const assumptions = getAssumptions();
     const data = [["Área", "Cargo", "Escala", "Trabajadores", "Sueldo mensual por persona", "IESS personal total", "IESS patronal total", "Décimo tercero mensual", "Décimo cuarto mensual", "Costo laboral modelado", "", "Supuesto", "Valor"]];
     rows.forEach((row, index) => {
@@ -171,13 +174,17 @@
       const workers = $(".workers-input", row).value;
       const salary = $(".salary-input", row).value;
       const assumptionLabel = index === 0 ? "Aporte personal IESS" : index === 1 ? "Aporte patronal IESS" : index === 2 ? "SBU 2026" : "";
-      const assumptionValue = index === 0 ? assumptions.personalRate : index === 1 ? assumptions.employerRate : index === 2 ? assumptions.sbu : "";
+      const assumptionValue = index === 0
+        ? assumptions.personalRate.toLocaleString("es-EC", { useGrouping: false, maximumFractionDigits: 4 })
+        : index === 1
+          ? assumptions.employerRate.toLocaleString("es-EC", { useGrouping: false, maximumFractionDigits: 4 })
+          : index === 2 ? assumptions.sbu : "";
       data.push([source.area, source.role, source.band, workers, salary, `=D${excelRow}*E${excelRow}*$M$2`, `=D${excelRow}*E${excelRow}*$M$3`, `=D${excelRow}*E${excelRow}/12`, `=D${excelRow}*$M$4/12`, `=D${excelRow}*(E${excelRow}+(E${excelRow}*$M$3)+(E${excelRow}/12)+($M$4/12))`, "", assumptionLabel, assumptionValue]);
     });
     const totalRow = rows.length + 2;
     const lastDataRow = rows.length + 1;
-    data.push(["", "TOTAL", "", `=SUM(D2:D${lastDataRow})`, `=SUMPRODUCT(D2:D${lastDataRow},E2:E${lastDataRow})`, `=SUM(F2:F${lastDataRow})`, `=SUM(G2:G${lastDataRow})`, `=SUM(H2:H${lastDataRow})`, `=SUM(I2:I${lastDataRow})`, `=SUM(J2:J${lastDataRow})`, "", "Nota", `Fila ${totalRow}: guarde como .xlsx para conservar fórmulas.`]);
-    const csv = data.map((row) => row.map(csvCell).join(",")).join("\r\n");
+    data.push(["", "TOTAL", "", `=SUMA(D2:D${lastDataRow})`, `=SUMAPRODUCTO(D2:D${lastDataRow};E2:E${lastDataRow})`, `=SUMA(F2:F${lastDataRow})`, `=SUMA(G2:G${lastDataRow})`, `=SUMA(H2:H${lastDataRow})`, `=SUMA(I2:I${lastDataRow})`, `=SUMA(J2:J${lastDataRow})`, "", "Nota", `Fila ${totalRow}: guarde como .xlsx para conservar fórmulas.`]);
+    const csv = data.map((row) => row.map(csvCell).join(";")).join("\r\n");
     const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -192,6 +199,6 @@
   $$("input, select").forEach((control) => control.addEventListener("input", updateCalculations));
   $("#reset-table").addEventListener("click", resetAll);
   $("#apply-midpoints").addEventListener("click", applyMidpoints);
-  $("#download-excel").addEventListener("click", downloadExcelCsv);
+  downloadButton.addEventListener("click", downloadExcelCsv);
   updateCalculations();
 })();

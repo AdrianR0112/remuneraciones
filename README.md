@@ -22,4 +22,4 @@ Abra `index.html` en un navegador. La segunda página está en `remuneraciones.h
 - Aporte patronal IESS: 11,15%.
 - El costo laboral modelado suma sueldo bruto, IESS patronal y provisiones mensuales de décimo tercero y décimo cuarto.
 
-Los valores pueden cambiarse en la interfaz. El modelo es académico y no incluye fondo de reserva, vacaciones, horas extra, indemnizaciones, equipos, software ni impuestos.
+Las tasas, remuneraciones y cantidades pueden cambiarse en la interfaz; el SBU 2026 queda fijado como referencia oficial. El modelo es académico y no incluye fondo de reserva, vacaciones, horas extra, indemnizaciones, equipos, software ni impuestos.
