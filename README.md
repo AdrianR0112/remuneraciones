@@ -9,6 +9,7 @@ Abra `index.html` en un navegador. La segunda página está en `remuneraciones.h
 ## Contenido
 
 - Organigrama funcional compacto con 10 personas, 9 cargos y las cuatro áreas originales.
+- Régimen laboral por cargo: Código del Trabajo, contrato indefinido y jornada completa.
 - Identificación de la rama económica TIC y control parametrizable del piso sectorial.
 - Cinco escalas salariales internas con mínimo, punto medio y máximo.
 - Tabla de remuneraciones editable con IESS personal, IESS patronal, décimo tercero, décimo cuarto y costo laboral modelado.

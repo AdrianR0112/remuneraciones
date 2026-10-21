@@ -6,15 +6,15 @@
   const $ = (selector, scope = document) => scope.querySelector(selector);
   const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
   const roles = [
-    { area: "Dirección", role: "Gerencia General", band: "E", workers: 1, salary: 2200 },
-    { area: "Producto y Tecnología", role: "Dirección de Tecnología", band: "L3", workers: 1, salary: 1700 },
-    { area: "Producto y Tecnología", role: "Ingeniería Full Stack", band: "L2", workers: 2, salary: 1200 },
-    { area: "Producto y Tecnología", role: "Producto, UX/UI y QA", band: "L2", workers: 1, salary: 1000 },
-    { area: "Operaciones y Clientes", role: "Jefatura de Operaciones e Implementación", band: "L2", workers: 1, salary: 1100 },
-    { area: "Operaciones y Clientes", role: "Soporte al Cliente", band: "O", workers: 1, salary: 600 },
-    { area: "Comercial y Marketing", role: "Jefatura Comercial y Marketing", band: "L2", workers: 1, salary: 1200 },
-    { area: "Comercial y Marketing", role: "Ejecutivo Comercial", band: "L1", workers: 1, salary: 800 },
-    { area: "Administración y Personas", role: "Jefatura Administrativa, Financiera y de Personas", band: "L2", workers: 1, salary: 1100 }
+    { area: "Dirección", role: "Gerencia General", band: "E", regime: "Código del Trabajo", contract: "Indefinido", schedule: "Jornada completa", workers: 1, salary: 2200 },
+    { area: "Producto y Tecnología", role: "Dirección de Tecnología", band: "L3", regime: "Código del Trabajo", contract: "Indefinido", schedule: "Jornada completa", workers: 1, salary: 1700 },
+    { area: "Producto y Tecnología", role: "Ingeniería Full Stack", band: "L2", regime: "Código del Trabajo", contract: "Indefinido", schedule: "Jornada completa", workers: 2, salary: 1200 },
+    { area: "Producto y Tecnología", role: "Producto, UX/UI y QA", band: "L2", regime: "Código del Trabajo", contract: "Indefinido", schedule: "Jornada completa", workers: 1, salary: 1000 },
+    { area: "Operaciones y Clientes", role: "Jefatura de Operaciones e Implementación", band: "L2", regime: "Código del Trabajo", contract: "Indefinido", schedule: "Jornada completa", workers: 1, salary: 1100 },
+    { area: "Operaciones y Clientes", role: "Soporte al Cliente", band: "O", regime: "Código del Trabajo", contract: "Indefinido", schedule: "Jornada completa", workers: 1, salary: 600 },
+    { area: "Comercial y Marketing", role: "Jefatura Comercial y Marketing", band: "L2", regime: "Código del Trabajo", contract: "Indefinido", schedule: "Jornada completa", workers: 1, salary: 1200 },
+    { area: "Comercial y Marketing", role: "Ejecutivo Comercial", band: "L1", regime: "Código del Trabajo", contract: "Indefinido", schedule: "Jornada completa", workers: 1, salary: 800 },
+    { area: "Administración y Personas", role: "Jefatura Administrativa, Financiera y de Personas", band: "L2", regime: "Código del Trabajo", contract: "Indefinido", schedule: "Jornada completa", workers: 1, salary: 1100 }
   ];
   const bands = {
     E: { min: 1800, midpoint: 2200, max: 2600 },
@@ -33,7 +33,7 @@
   function renderRows() {
     payrollBody.innerHTML = roles.map((item, index) => `
       <tr data-index="${index}" data-role="${item.role}" data-band="${item.band}">
-        <th scope="row"><span>${item.role}</span><small>${item.area}</small></th>
+        <th scope="row"><span>${item.role}</span><small>${item.area}</small><small class="employment-meta">${item.regime} · ${item.contract} · ${item.schedule}</small></th>
         <td><span class="band-chip">${item.band}</span></td>
         <td><input class="workers-input" aria-label="Trabajadores en ${item.role}" type="number" min="0" max="100" step="1" value="${item.workers}" data-default="${item.workers}" inputmode="numeric"></td>
         <td><span class="money-input"><b>$</b><input class="salary-input" aria-label="Sueldo de ${item.role}" type="number" min="482" max="10000" step="10" value="${item.salary}" data-default="${item.salary}" inputmode="decimal"></span></td>
@@ -130,6 +130,8 @@
   function loadIndividualRole() {
     const index = Math.min(rows.length - 1, Math.max(0, Number.parseInt(individualRoleSelect.value, 10) || 0));
     individualSalaryInput.value = $(".salary-input", rows[index]).value;
+    const item = roles[index];
+    $("#individual-regime").innerHTML = `<strong>Régimen:</strong> ${item.regime} <span>·</span> <strong>Modalidad:</strong> ${item.contract} <span>·</span> ${item.schedule}`;
   }
 
   function updateIndividualCalculator() {
@@ -239,7 +241,7 @@
   function downloadExcelCsv() {
     if (downloadButton.disabled) return;
     const assumptions = getAssumptions();
-    const data = [["Área", "Cargo", "Escala", "Trabajadores", "Sueldo mensual por persona", "IESS personal total", "IESS patronal total", "Décimo tercero mensual", "Décimo cuarto mensual", "Costo laboral modelado", "", "Supuesto", "Valor"]];
+    const data = [["Área", "Cargo", "Escala", "Régimen laboral", "Modalidad contractual", "Jornada", "Trabajadores", "Sueldo mensual por persona", "IESS personal total", "IESS patronal total", "Décimo tercero mensual", "Décimo cuarto mensual", "Costo laboral modelado", "", "Supuesto", "Valor"]];
     rows.forEach((row, index) => {
       const excelRow = index + 2;
       const source = roles[index];
@@ -251,11 +253,11 @@
         : index === 1
           ? assumptions.employerRate.toLocaleString("es-EC", { useGrouping: false, maximumFractionDigits: 4 })
           : index === 2 ? assumptions.sbu : index === 3 ? assumptions.sectoralFloor : "";
-      data.push([source.area, source.role, source.band, workers, salary, `=D${excelRow}*E${excelRow}*$M$2`, `=D${excelRow}*E${excelRow}*$M$3`, `=D${excelRow}*E${excelRow}/12`, `=D${excelRow}*$M$4/12`, `=D${excelRow}*(E${excelRow}+(E${excelRow}*$M$3)+(E${excelRow}/12)+($M$4/12))`, "", assumptionLabel, assumptionValue]);
+      data.push([source.area, source.role, source.band, source.regime, source.contract, source.schedule, workers, salary, `=G${excelRow}*H${excelRow}*$P$2`, `=G${excelRow}*H${excelRow}*$P$3`, `=G${excelRow}*H${excelRow}/12`, `=G${excelRow}*$P$4/12`, `=G${excelRow}*(H${excelRow}+(H${excelRow}*$P$3)+(H${excelRow}/12)+($P$4/12))`, "", assumptionLabel, assumptionValue]);
     });
     const totalRow = rows.length + 2;
     const lastDataRow = rows.length + 1;
-    data.push(["", "TOTAL", "", `=SUMA(D2:D${lastDataRow})`, `=SUMAPRODUCTO(D2:D${lastDataRow};E2:E${lastDataRow})`, `=SUMA(F2:F${lastDataRow})`, `=SUMA(G2:G${lastDataRow})`, `=SUMA(H2:H${lastDataRow})`, `=SUMA(I2:I${lastDataRow})`, `=SUMA(J2:J${lastDataRow})`, "", "Nota", `Fila ${totalRow}: guarde como .xlsx para conservar fórmulas.`]);
+    data.push(["", "TOTAL", "", "", "", "", `=SUMA(G2:G${lastDataRow})`, `=SUMAPRODUCTO(G2:G${lastDataRow};H2:H${lastDataRow})`, `=SUMA(I2:I${lastDataRow})`, `=SUMA(J2:J${lastDataRow})`, `=SUMA(K2:K${lastDataRow})`, `=SUMA(L2:L${lastDataRow})`, `=SUMA(M2:M${lastDataRow})`, "", "Nota", `Fila ${totalRow}: guarde como .xlsx para conservar fórmulas.`]);
     const csv = data.map((row) => row.map(csvCell).join(";")).join("\r\n");
     const blob = new Blob(["\uFEFF", csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);

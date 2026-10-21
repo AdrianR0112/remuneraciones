@@ -116,7 +116,7 @@ h1 { max-width: 880px; margin-bottom: 26px; font-size: clamp(3.3rem, 8vw, 6rem);
 
 .section-block { padding: 100px 0; border-bottom: 1px solid var(--line-strong); }
 .section-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .7fr); gap: 70px; align-items: start; margin-bottom: 62px; }
-.section-heading h2, .calculation-section h2, .sustainability-section h2, .method-section h2, .decision-strip h2, .individual-calculator h2 { font-size: clamp(2.2rem, 4.5vw, 4rem); line-height: 1; letter-spacing: -.035em; margin-bottom: 0; }
+.section-heading h2, .calculation-section h2, .sustainability-section h2, .method-section h2, .decision-strip h2, .individual-calculator h2, .regime-strip h2 { font-size: clamp(2.2rem, 4.5vw, 4rem); line-height: 1; letter-spacing: -.035em; margin-bottom: 0; }
 .section-heading p { max-width: 52ch; color: var(--ink-soft); margin-bottom: 0; }
 
 .org-chart { width: min(980px, 100%); margin: 0 auto; }
@@ -156,16 +156,20 @@ h1 { max-width: 880px; margin-bottom: 26px; font-size: clamp(3.3rem, 8vw, 6rem);
 .compact-heading { margin-bottom: 36px; }
 .role-list { border-top: 2px solid var(--ink); }
 .role-table-wrap { overflow-x: auto; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
-.role-matrix { width: 100%; min-width: 1120px; border-collapse: collapse; }
+.role-matrix { width: 100%; min-width: 1380px; border-collapse: collapse; }
 .role-matrix th, .role-matrix td { padding: 16px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
 .role-matrix thead th { background: var(--ink); color: #fff; font-size: .78rem; text-align: center; border-right: 1px solid rgba(255,255,255,.14); }
-.role-matrix thead th:nth-child(1), .role-matrix thead th:nth-child(2), .role-matrix thead th:nth-child(4), .role-matrix thead th:nth-child(5) { text-align: left; }
+.role-matrix thead th:nth-child(1), .role-matrix thead th:nth-child(2), .role-matrix thead th:nth-child(4), .role-matrix thead th:nth-child(5), .role-matrix thead th:nth-child(6) { text-align: left; }
 .role-matrix tbody th { min-width: 210px; line-height: 1.3; }
 .role-matrix tbody td { color: var(--ink-soft); font-size: .9rem; }
 .role-matrix tbody td:nth-child(1) { width: 170px; }
-.role-matrix tbody td:nth-child(3), .role-matrix tbody td:nth-child(6) { text-align: center; font-family: var(--data); color: var(--blue); }
+.role-matrix tbody td:nth-child(3), .role-matrix tbody td:nth-child(7) { text-align: center; font-family: var(--data); color: var(--blue); }
 .role-matrix tbody td:nth-child(4) { width: 190px; }
-.role-matrix tbody td:nth-child(5) { min-width: 310px; }
+.role-matrix tbody td:nth-child(5) { min-width: 230px; }
+.role-matrix tbody td:nth-child(6) { min-width: 310px; }
+.regime-cell strong, .regime-cell small { display: block; }
+.regime-cell strong { color: var(--ink); font-size: .86rem; }
+.regime-cell small { margin-top: 6px; color: var(--ink-soft); font-family: var(--data); font-size: .76rem; }
 .role-matrix tfoot th, .role-matrix tfoot td { background: var(--mint); border-bottom: 0; font-weight: 700; color: var(--ink); }
 .role-row { display: grid; grid-template-columns: 54px minmax(220px, .8fr) minmax(0, 1.7fr); gap: 28px; padding: 30px 0 34px; border-bottom: 1px solid var(--line); }
 .role-index { font-family: var(--data); color: var(--blue); font-size: .78rem; padding-top: 3px; }
@@ -175,6 +179,16 @@ h1 { max-width: 880px; margin-bottom: 26px; font-size: clamp(3.3rem, 8vw, 6rem);
 .role-row dl div { min-width: 0; }
 .role-row dt { color: var(--ink-soft); font-family: var(--data); font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 7px; }
 .role-row dd { margin: 0; line-height: 1.45; }
+
+.regime-strip { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); gap: clamp(46px, 7vw, 92px); padding: 82px 0; border-bottom: 1px solid var(--line-strong); }
+.regime-strip h2 { margin-bottom: 24px; }
+.regime-strip p { max-width: 72ch; color: var(--ink-soft); }
+.regime-strip p strong { color: var(--ink); }
+.regime-strip .regime-caveat { margin-top: 18px; font-size: .86rem; }
+.regime-strip dl { margin: 8px 0 0; border-top: 2px solid var(--ink); }
+.regime-strip dl div { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.regime-strip dt { color: var(--ink-soft); font-family: var(--data); font-size: .76rem; letter-spacing: .04em; text-transform: uppercase; }
+.regime-strip dd { margin: 7px 0 0; font-weight: 700; }
 
 .decision-strip { margin: 90px 0; padding: clamp(34px, 5vw, 58px); display: grid; grid-template-columns: minmax(0, 1.6fr) auto; gap: 54px; align-items: end; background: var(--blue); color: #fff; border-radius: var(--radius); box-shadow: 0 18px 42px rgba(47, 89, 217, .22); }
 .decision-strip h2 { max-width: 700px; margin-bottom: 22px; }
@@ -233,6 +247,7 @@ input[aria-invalid="true"] { background: #ffe1dc !important; color: #8a1f16 !imp
 .payroll-table tbody th { text-align: left; font-size: .92rem; line-height: 1.25; }
 .payroll-table tbody th span, .payroll-table tbody th small { display: block; }
 .payroll-table tbody th small { color: var(--ink-soft); margin-top: 5px; font-weight: 400; }
+.payroll-table tbody th .employment-meta { margin-top: 8px; color: var(--blue); font-family: var(--data); font-size: .76rem; line-height: 1.4; }
 .payroll-table td { font-family: var(--data); font-size: .84rem; }
 .payroll-table tbody tr:hover { background: rgba(255,255,255,.38); }
 .payroll-table input { border: 0; background: transparent; font-family: var(--data); color: var(--ink); text-align: right; }
@@ -252,6 +267,9 @@ input[aria-invalid="true"] { background: #ffe1dc !important; color: #8a1f16 !imp
 .calculator-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 20px; padding-top: 28px; border-top: 2px solid var(--ink); }
 .calculator-field { display: grid; gap: 8px; min-width: 0; }
 .calculator-field-wide { grid-column: 1 / -1; }
+.individual-regime { margin: -10px 0 0; padding: 12px 14px; color: var(--ink-soft); background: var(--paper-deep); border-radius: 8px; font-size: .82rem; }
+.individual-regime strong { color: var(--ink); }
+.individual-regime span { padding: 0 4px; color: var(--blue); }
 .calculator-field > label, .hours-grid label { display: grid; gap: 7px; color: var(--ink-soft); font-size: .82rem; }
 .calculator-field label small, .hours-grid small { color: var(--ink-soft); font-weight: 400; }
 .hours-fieldset { margin: 4px 0 0; padding: 24px 0 0; border: 0; border-top: 1px solid var(--line); }
@@ -323,7 +341,7 @@ select { width: 100%; padding: 12px 42px 12px 13px; color: var(--ink); border: 1
 @media (max-width: 980px) {
   :root { --page: min(100% - 32px, 760px); }
   .hero, .payroll-intro { grid-template-columns: 1fr; gap: 54px; min-height: auto; padding: 84px 0 64px; }
-  .section-heading, .table-heading, .calculation-section, .sustainability-section { grid-template-columns: 1fr; gap: 34px; }
+  .section-heading, .table-heading, .calculation-section, .sustainability-section, .regime-strip { grid-template-columns: 1fr; gap: 34px; }
   .section-heading { margin-bottom: 44px; }
   .org-directors { gap: 28px; }
   .department-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -356,7 +374,7 @@ select { width: 100%; padding: 12px 42px 12px 13px; color: var(--ink); border: 1
   h1 { font-size: clamp(2.75rem, 12vw, 4.2rem); overflow-wrap: anywhere; }
   .lead { max-width: 100%; }
   .hero, .payroll-intro { padding-top: 64px; }
-  .section-block, .calculation-section, .sustainability-section, .method-section { padding-top: 72px; padding-bottom: 72px; }
+  .section-block, .calculation-section, .sustainability-section, .method-section, .regime-strip { padding-top: 72px; padding-bottom: 72px; }
   .org-branches { display: none; }
   .org-spine-short { height: 30px; }
   .department-grid { grid-template-columns: 1fr; }
