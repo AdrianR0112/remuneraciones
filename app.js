@@ -8,21 +8,13 @@
   const roles = [
     { area: "Dirección", role: "Gerencia General", band: "E", workers: 1, salary: 2200 },
     { area: "Producto y Tecnología", role: "Dirección de Tecnología", band: "L3", workers: 1, salary: 1700 },
-    { area: "Producto y Tecnología", role: "Ingeniería Backend", band: "L2", workers: 2, salary: 1200 },
-    { area: "Producto y Tecnología", role: "Ingeniería Frontend", band: "L2", workers: 2, salary: 1150 },
-    { area: "Producto y Tecnología", role: "DevOps e Infraestructura", band: "L2", workers: 1, salary: 1250 },
-    { area: "Producto y Tecnología", role: "QA y Automatización", band: "L1", workers: 1, salary: 850 },
-    { area: "Producto y Tecnología", role: "Gestión de Producto", band: "L2", workers: 1, salary: 1200 },
-    { area: "Producto y Tecnología", role: "Diseño UX/UI", band: "L1", workers: 1, salary: 850 },
-    { area: "Operaciones y Clientes", role: "Jefatura de Operaciones", band: "L3", workers: 1, salary: 1400 },
-    { area: "Operaciones y Clientes", role: "Especialista de Implementación", band: "L1", workers: 2, salary: 750 },
-    { area: "Operaciones y Clientes", role: "Soporte al Cliente", band: "O", workers: 2, salary: 600 },
-    { area: "Comercial y Marketing", role: "Jefatura Comercial y Marketing", band: "L3", workers: 1, salary: 1400 },
-    { area: "Comercial y Marketing", role: "Ejecutivo Comercial", band: "L1", workers: 2, salary: 800 },
-    { area: "Comercial y Marketing", role: "Marketing Digital", band: "L1", workers: 1, salary: 750 },
-    { area: "Administración y Personas", role: "Jefatura Administrativa y Financiera", band: "L3", workers: 1, salary: 1350 },
-    { area: "Administración y Personas", role: "Analista Contable y Administrativo", band: "L1", workers: 1, salary: 750 },
-    { area: "Administración y Personas", role: "Analista de Talento Humano", band: "L1", workers: 1, salary: 750 }
+    { area: "Producto y Tecnología", role: "Ingeniería Full Stack", band: "L2", workers: 2, salary: 1200 },
+    { area: "Producto y Tecnología", role: "Producto, UX/UI y QA", band: "L2", workers: 1, salary: 1000 },
+    { area: "Operaciones y Clientes", role: "Jefatura de Operaciones e Implementación", band: "L2", workers: 1, salary: 1100 },
+    { area: "Operaciones y Clientes", role: "Soporte al Cliente", band: "O", workers: 1, salary: 600 },
+    { area: "Comercial y Marketing", role: "Jefatura Comercial y Marketing", band: "L2", workers: 1, salary: 1200 },
+    { area: "Comercial y Marketing", role: "Ejecutivo Comercial", band: "L1", workers: 1, salary: 800 },
+    { area: "Administración y Personas", role: "Jefatura Administrativa, Financiera y de Personas", band: "L2", workers: 1, salary: 1100 }
   ];
   const bands = {
     E: { min: 1800, midpoint: 2200, max: 2600 },
