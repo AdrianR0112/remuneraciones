@@ -20,15 +20,16 @@
 
   <main id="contenido">
     <section class="payroll-intro" aria-labelledby="titulo-principal">
-      <div><p class="context-line">Modelo mensual editable · empresa estructurada</p><h1 id="titulo-principal">Escalas claras. Costos verificables.</h1><p class="lead">La política salarial ordena 17 cargos en cinco bandas. Cambie dotación, sueldo o tasas y el modelo actualiza toda la nómina.</p></div>
+      <div><p class="context-line">Modelo mensual editable · empresa estructurada</p><h1 id="titulo-principal">Escalas claras. Costos verificables.</h1><p class="lead">La política salarial ordena 17 cargos en cinco bandas. Cambie dotación, sueldo o tasas y el modelo actualiza toda la nómina.</p><a class="text-link" href="#calculadora-individual">Calcular un rol individual <span aria-hidden="true">↓</span></a></div>
       <aside class="total-display" aria-live="polite"><span>Costo laboral mensual modelado</span><strong id="grand-total">$0,00</strong><small id="annual-total">$0,00 al año</small></aside>
     </section>
 
     <section class="assumptions" aria-labelledby="titulo-supuestos">
-      <div class="assumption-heading"><h2 id="titulo-supuestos">Supuestos de cálculo</h2><p>Las tasas son editables. El SBU 2026 se mantiene como referencia oficial del ejercicio.</p></div>
+      <div class="assumption-heading"><h2 id="titulo-supuestos">Supuestos de cálculo</h2><p>Las tasas y el piso sectorial son parámetros dinámicos. El SBU 2026 se mantiene como referencia oficial del ejercicio.</p></div>
       <label><span>Aporte personal IESS</span><span class="input-unit"><input id="rate-personal" type="number" min="0" max="100" step="0.01" value="9.45" data-default="9.45" inputmode="decimal"><b>%</b></span></label>
       <label><span>Aporte patronal IESS</span><span class="input-unit"><input id="rate-employer" type="number" min="0" max="100" step="0.01" value="11.15" data-default="11.15" inputmode="decimal"><b>%</b></span></label>
       <label><span>SBU oficial 2026</span><span class="input-unit currency"><b>$</b><input id="sbu" type="number" min="1" max="10000" step="1" value="482" data-default="482" inputmode="decimal" readonly></span></label>
+      <label><span>Piso sectorial TIC referencial</span><span class="input-unit currency"><b>$</b><input id="sectoral-floor" type="number" min="1" max="10000" step="0.01" value="505.88" data-default="505.88" inputmode="decimal" aria-describedby="sectoral-help"></span></label>
     </section>
 
     <section class="section-block salary-scale-section" aria-labelledby="titulo-escalas">
@@ -38,9 +39,9 @@
         <article data-scale="L3"><div><span class="scale-code">L3</span><h3>Liderazgo</h3><p>Direcciones y jefaturas</p></div><dl><div><dt>Mínimo</dt><dd>$1.300</dd></div><div><dt>Punto medio</dt><dd>$1.550</dd></div><div><dt>Máximo</dt><dd>$1.800</dd></div></dl></article>
         <article data-scale="L2"><div><span class="scale-code">L2</span><h3>Especialista sénior</h3><p>Ingeniería, DevOps y Producto</p></div><dl><div><dt>Mínimo</dt><dd>$950</dd></div><div><dt>Punto medio</dt><dd>$1.150</dd></div><div><dt>Máximo</dt><dd>$1.350</dd></div></dl></article>
         <article data-scale="L1"><div><span class="scale-code">L1</span><h3>Profesional</h3><p>Analistas y especialistas</p></div><dl><div><dt>Mínimo</dt><dd>$650</dd></div><div><dt>Punto medio</dt><dd>$800</dd></div><div><dt>Máximo</dt><dd>$950</dd></div></dl></article>
-        <article data-scale="O"><div><span class="scale-code">O</span><h3>Operativa</h3><p>Soporte y asistencia</p></div><dl><div><dt>Mínimo</dt><dd>$482</dd></div><div><dt>Punto medio</dt><dd>$575</dd></div><div><dt>Máximo</dt><dd>$650</dd></div></dl></article>
+        <article data-scale="O"><div><span class="scale-code">O</span><h3>Operativa</h3><p>Soporte y asistencia</p></div><dl><div><dt>Mínimo</dt><dd>$510</dd></div><div><dt>Punto medio</dt><dd>$580</dd></div><div><dt>Máximo</dt><dd>$650</dd></div></dl></article>
       </div>
-      <p class="scale-note">Criterio: experiencia, autonomía, impacto de decisiones y escasez técnica. Ninguna remuneración activa debe quedar por debajo del SBU.</p>
+      <p class="scale-note" id="sectoral-help"><strong>Control legal:</strong> VIGENTE pertenece a la Comisión Sectorial 12, Tecnología: Hardware y Software (incluye TIC). El material de clase usa para 2026 un rango referencial de $505,88 (E2) a $520,32 (A1). La equivalencia exacta de cada cargo debe verificarse en el MDT antes de contratar; ninguna remuneración activa queda por debajo del parámetro ingresado.</p>
     </section>
 
     <section class="section-block payroll-section" aria-labelledby="titulo-tabla">
@@ -55,6 +56,42 @@
         </table>
       </div>
       <p class="table-note"><strong>Alcance:</strong> el costo modelado suma sueldo bruto, IESS patronal y provisiones de décimo tercero y décimo cuarto. El IESS personal es una retención del trabajador. Fondo de reserva, vacaciones, horas extra, indemnizaciones, equipos, software e impuestos deben presupuestarse por separado.</p>
+    </section>
+
+    <section class="section-block individual-calculator" id="calculadora-individual" aria-labelledby="titulo-calculadora">
+      <div class="section-heading calculator-heading"><h2 id="titulo-calculadora">Calculadora individual de remuneración</h2><p>Simula un rol mensual completo: sueldo, novedades, aportes, descuentos, décimos y costo para la empresa. Los recargos siguen el ejemplo didáctico del material adjunto.</p></div>
+      <div class="calculator-grid">
+        <form class="calculator-form" id="individual-calculator" novalidate>
+          <div class="calculator-field calculator-field-wide"><label for="individual-role">Cargo de referencia</label><select id="individual-role"></select></div>
+          <div class="calculator-field"><label for="individual-salary">Sueldo mensual</label><span class="money-input wide"><b>$</b><input id="individual-salary" type="number" min="1" max="100000" step="0.01" value="2200" data-default="2200" inputmode="decimal"></span></div>
+          <div class="calculator-field"><label for="individual-bonus">Bonos y otros ingresos</label><span class="money-input wide"><b>$</b><input id="individual-bonus" type="number" min="0" max="100000" step="0.01" value="0" data-default="0" inputmode="decimal"></span></div>
+          <fieldset class="hours-fieldset calculator-field-wide"><legend>Novedades de jornada</legend><p>Valor hora = remuneración mensual ÷ 240.</p><div class="hours-grid">
+            <label><span>Horas suplementarias <small>× 1,50</small></span><input id="individual-supp-hours" type="number" min="0" max="48" step="0.5" value="0" data-default="0" inputmode="decimal"></label>
+            <label><span>Horas extraordinarias <small>× 2,00</small></span><input id="individual-extra-hours" type="number" min="0" max="200" step="0.5" value="0" data-default="0" inputmode="decimal"></label>
+            <label><span>Horas nocturnas ordinarias <small>× 1,25</small></span><input id="individual-night-hours" type="number" min="0" max="240" step="0.5" value="0" data-default="0" inputmode="decimal"></label>
+          </div></fieldset>
+          <div class="calculator-field calculator-field-wide"><label for="individual-deductions">Otros descuentos <small>préstamos, anticipos u otros</small></label><span class="money-input wide"><b>$</b><input id="individual-deductions" type="number" min="0" max="100000" step="0.01" value="0" data-default="0" inputmode="decimal"></span></div>
+          <div class="salary-status" id="individual-status" role="status" aria-live="polite"></div>
+        </form>
+
+        <aside class="pay-slip" aria-labelledby="titulo-rol-individual">
+          <div class="pay-slip-total"><span id="titulo-rol-individual">Líquido estimado a recibir</span><strong id="individual-net" aria-live="polite">$0,00</strong><small>Ingresos del período menos IESS personal y otros descuentos.</small></div>
+          <dl class="pay-slip-lines">
+            <div><dt>Sueldo base</dt><dd id="individual-base">—</dd></div>
+            <div><dt>Valor por hora</dt><dd id="individual-hour-value">—</dd></div>
+            <div><dt>Horas suplementarias</dt><dd id="individual-supp-total">—</dd></div>
+            <div><dt>Horas extraordinarias</dt><dd id="individual-extra-total">—</dd></div>
+            <div><dt>Horas nocturnas</dt><dd id="individual-night-total">—</dd></div>
+            <div><dt>Bonos y otros ingresos</dt><dd id="individual-bonus-total">—</dd></div>
+            <div class="pay-slip-subtotal"><dt>Total de ingresos</dt><dd id="individual-gross">—</dd></div>
+            <div><dt>IESS personal</dt><dd id="individual-personal">—</dd></div>
+            <div><dt>Otros descuentos</dt><dd id="individual-discounts-total">—</dd></div>
+          </dl>
+          <div class="benefit-annex"><h3>Aportes y beneficios de la empresa</h3><dl><div><dt>IESS patronal</dt><dd id="individual-employer">—</dd></div><div><dt>Décimo tercero</dt><dd id="individual-thirteenth">—</dd></div><div><dt>Décimo cuarto</dt><dd id="individual-fourteenth">—</dd></div></dl></div>
+          <div class="employer-cost"><span>Costo mensual modelado para la empresa</span><strong id="individual-employer-cost">—</strong><small>Incluye ingresos, IESS patronal y provisión de décimos.</small></div>
+        </aside>
+      </div>
+      <p class="calculator-note"><strong>Supuesto didáctico:</strong> todos los ingresos adicionales ingresados forman parte de la base de aportación. El límite de 48 horas suplementarias mensuales aproxima el máximo de 12 horas semanales indicado en el material. El modelo no calcula Impuesto a la Renta, fondos de reserva, vacaciones ni cruces entre recargos; valide el rol definitivo con la normativa y las novedades reales del período.</p>
     </section>
 
     <section class="calculation-section" aria-labelledby="titulo-ejemplo">
@@ -73,7 +110,7 @@
       <div class="break-even"><h3>Escenario ilustrativo de equilibrio</h3><label for="revenue-per-client">Ingreso mensual promedio por cliente</label><span class="money-input wide"><b>$</b><input id="revenue-per-client" type="number" min="1" max="1000000" step="1" value="79" data-default="79" inputmode="decimal"></span><p>Se requieren aproximadamente <strong id="clients-needed">—</strong> clientes activos para cubrir únicamente el costo laboral modelado.</p><small>No es una proyección de ventas. No incluye otros gastos de la empresa.</small></div>
     </section>
 
-    <section class="method-section" aria-labelledby="titulo-metodo"><h2 id="titulo-metodo">Cómo se calcula</h2><div class="method-grid"><div><h3>IESS personal</h3><p>Trabajadores × sueldo × tasa personal. Es una retención al colaborador.</p></div><div><h3>IESS patronal</h3><p>Trabajadores × sueldo × tasa patronal. Lo cubre la empresa.</p></div><div><h3>Décimo tercero</h3><p>Trabajadores × sueldo ÷ 12. Provisión mensual de una remuneración anual.</p></div><div><h3>Décimo cuarto</h3><p>Trabajadores × SBU ÷ 12. Usa el salario básico, no el sueldo individual.</p></div><div class="method-total"><h3>Costo laboral modelado</h3><p>Trabajadores × (sueldo + IESS patronal + décimo tercero + décimo cuarto).</p></div></div><p class="sources">Fuentes oficiales: <a href="https://www.iess.gob.ec/es/web/guest/preguntas-frecuentes-afiliacion" target="_blank" rel="noreferrer">tasas IESS</a>, <a href="https://www.trabajo.gob.ec/wp-content/uploads/downloads/2026/01/ACUERDO-MINISTERIAL-MDT-2025-195.pdf" target="_blank" rel="noreferrer">SBU 2026 de USD 482</a> y <a href="https://www.trabajo.gob.ec/29-cual-es-el-plazo-y-como-se-debe-realizar-la-solicitud-para-la-acumulacion-del-pago-de-la-decima-tercera-y-decima-cuarta-remuneracion/" target="_blank" rel="noreferrer">décimos</a>.</p></section>
+    <section class="method-section" aria-labelledby="titulo-metodo"><h2 id="titulo-metodo">Cómo se calcula</h2><div class="method-grid"><div><h3>IESS personal</h3><p>Ingresos sujetos a aporte × tasa personal. Es una retención al colaborador.</p></div><div><h3>Valor hora y recargos</h3><p>Sueldo ÷ 240; suplementaria × 1,50, extraordinaria × 2,00 y nocturna ordinaria × 1,25.</p></div><div><h3>Décimo tercero</h3><p>Ingresos computables ÷ 12. Provisión mensual de una remuneración anual.</p></div><div><h3>Décimo cuarto</h3><p>SBU ÷ 12 por trabajador. Usa el salario básico, no el sueldo individual.</p></div><div><h3>Líquido a recibir</h3><p>Total de ingresos − IESS personal − otros descuentos del período.</p></div><div><h3>IESS patronal</h3><p>Ingresos sujetos a aporte × tasa patronal. Lo cubre la empresa.</p></div><div class="method-total"><h3>Costo laboral modelado</h3><p>Ingresos + IESS patronal + provisión mensual de décimo tercero y décimo cuarto.</p></div></div><p class="sources">Fuentes oficiales: <a href="https://www.iess.gob.ec/es/web/guest/preguntas-frecuentes-afiliacion" target="_blank" rel="noreferrer">tasas IESS</a>, <a href="https://www.trabajo.gob.ec/wp-content/uploads/downloads/2026/01/ACUERDO-MINISTERIAL-MDT-2025-195.pdf" target="_blank" rel="noreferrer">SBU 2026 de USD 482</a>, <a href="https://www.trabajo.gob.ec/wp-content/uploads/downloads/2024/12/Anexo-1-Salarios-Minimos-Sectoriales-y-Tarifas-2025-2-1-1.pdf" target="_blank" rel="noreferrer">Comisión Sectorial 12 TIC</a> y <a href="https://www.trabajo.gob.ec/29-cual-es-el-plazo-y-como-se-debe-realizar-la-solicitud-para-la-acumulacion-del-pago-de-la-decima-tercera-y-decima-cuarta-remuneracion/" target="_blank" rel="noreferrer">décimos</a>.</p></section>
   </main>
   <footer class="site-footer"><span>VIGENTE · Modelo empresarial con escalas salariales</span><a href="index.html">Volver a organización</a></footer>
 </body>

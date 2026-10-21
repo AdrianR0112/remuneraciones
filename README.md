@@ -9,8 +9,10 @@ Abra `index.html` en un navegador. La segunda página está en `remuneraciones.h
 ## Contenido
 
 - Organigrama funcional de una empresa estructurada con 22 personas, 17 cargos y cuatro áreas.
+- Identificación de la rama económica TIC y control parametrizable del piso sectorial.
 - Cinco escalas salariales internas con mínimo, punto medio y máximo.
 - Tabla de remuneraciones editable con IESS personal, IESS patronal, décimo tercero, décimo cuarto y costo laboral modelado.
+- Calculadora individual de rol de pagos con bonos, descuentos y horas suplementarias, extraordinarias y nocturnas.
 - Desarrollo completo del cálculo de un trabajador.
 - Análisis breve de sostenibilidad.
 - Descarga de un CSV compatible con Excel que incluye fórmulas recalculables.
@@ -18,6 +20,7 @@ Abra `index.html` en un navegador. La segunda página está en `remuneraciones.h
 ## Supuestos iniciales
 
 - SBU Ecuador 2026: USD 482.
+- Piso sectorial TIC referencial del ejercicio: USD 505,88, editable según la homologación del cargo.
 - Aporte personal IESS: 9,45%.
 - Aporte patronal IESS: 11,15%.
 - El costo laboral modelado suma sueldo bruto, IESS patronal y provisiones mensuales de décimo tercero y décimo cuarto.

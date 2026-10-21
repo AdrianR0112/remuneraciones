@@ -29,7 +29,7 @@
     L3: { min: 1300, midpoint: 1550, max: 1800 },
     L2: { min: 950, midpoint: 1150, max: 1350 },
     L1: { min: 650, midpoint: 800, max: 950 },
-    O: { min: 482, midpoint: 575, max: 650 }
+    O: { min: 510, midpoint: 580, max: 650 }
   };
 
   const currency = new Intl.NumberFormat("es-EC", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -48,6 +48,7 @@
         <td data-output="personal">—</td><td data-output="employer">—</td><td data-output="thirteenth">—</td><td data-output="fourteenth">—</td><td class="cost-cell" data-output="cost">—</td>
       </tr>`).join("");
     exampleSelect.innerHTML = roles.map((item, index) => `<option value="${index}">${item.role}</option>`).join("");
+    $("#individual-role").innerHTML = roles.map((item, index) => `<option value="${index}">${item.role}</option>`).join("");
   }
 
   renderRows();
@@ -55,7 +56,16 @@
   const ratePersonalInput = $("#rate-personal");
   const rateEmployerInput = $("#rate-employer");
   const sbuInput = $("#sbu");
+  const sectoralFloorInput = $("#sectoral-floor");
   const revenueInput = $("#revenue-per-client");
+  const individualRoleSelect = $("#individual-role");
+  const individualSalaryInput = $("#individual-salary");
+  const individualBonusInput = $("#individual-bonus");
+  const individualSuppHoursInput = $("#individual-supp-hours");
+  const individualExtraHoursInput = $("#individual-extra-hours");
+  const individualNightHoursInput = $("#individual-night-hours");
+  const individualDeductionsInput = $("#individual-deductions");
+  const individualStatus = $("#individual-status");
 
   function readNumber(input, { min, max, integer = false }) {
     const raw = input.value.trim();
@@ -69,14 +79,15 @@
     const personal = readNumber(ratePersonalInput, { min: 0, max: 100 });
     const employer = readNumber(rateEmployerInput, { min: 0, max: 100 });
     const sbu = readNumber(sbuInput, { min: 1, max: 10000 });
-    return { valid: personal.valid && employer.valid && sbu.valid, personalRate: personal.value / 100, employerRate: employer.value / 100, sbu: sbu.value };
+    const sectoralFloor = readNumber(sectoralFloorInput, { min: 1, max: 10000 });
+    return { valid: personal.valid && employer.valid && sbu.valid && sectoralFloor.valid, personalRate: personal.value / 100, employerRate: employer.value / 100, sbu: sbu.value, sectoralFloor: sectoralFloor.value };
   }
 
   function calculateRow(row, assumptions) {
     const workersInput = $(".workers-input", row);
     const salaryInput = $(".salary-input", row);
     const workersResult = readNumber(workersInput, { min: 0, max: 100, integer: true });
-    const salaryResult = readNumber(salaryInput, { min: assumptions.sbu || 1, max: 10000 });
+    const salaryResult = readNumber(salaryInput, { min: Math.max(assumptions.sbu, assumptions.sectoralFloor) || 1, max: 10000 });
     const valid = assumptions.valid && workersResult.valid && salaryResult.valid;
     const workers = workersResult.value;
     const salary = salaryResult.value;
@@ -120,6 +131,72 @@
     $("#example-cost").textContent = currency.format(cost);
   }
 
+  function setIndividualMoney(id, value, valid) {
+    $(id).textContent = valid ? currency.format(value) : "—";
+  }
+
+  function loadIndividualRole() {
+    const index = Math.min(rows.length - 1, Math.max(0, Number.parseInt(individualRoleSelect.value, 10) || 0));
+    individualSalaryInput.value = $(".salary-input", rows[index]).value;
+  }
+
+  function updateIndividualCalculator() {
+    const assumptions = getAssumptions();
+    const salary = readNumber(individualSalaryInput, { min: 1, max: 100000 });
+    const bonus = readNumber(individualBonusInput, { min: 0, max: 100000 });
+    const supplementaryHours = readNumber(individualSuppHoursInput, { min: 0, max: 48 });
+    const extraordinaryHours = readNumber(individualExtraHoursInput, { min: 0, max: 200 });
+    const nightHours = readNumber(individualNightHoursInput, { min: 0, max: 240 });
+    const deductions = readNumber(individualDeductionsInput, { min: 0, max: 100000 });
+    const baseValid = assumptions.valid && salary.valid && bonus.valid && supplementaryHours.valid && extraordinaryHours.valid && nightHours.valid && deductions.valid;
+    const hourValue = salary.value / 240;
+    const supplementary = hourValue * 1.5 * supplementaryHours.value;
+    const extraordinary = hourValue * 2 * extraordinaryHours.value;
+    const night = hourValue * 1.25 * nightHours.value;
+    const gross = salary.value + bonus.value + supplementary + extraordinary + night;
+    const personal = gross * assumptions.personalRate;
+    const employer = gross * assumptions.employerRate;
+    const thirteenth = gross / 12;
+    const fourteenth = assumptions.sbu / 12;
+    const deductionsAllowed = deductions.value <= gross - personal;
+    individualDeductionsInput.toggleAttribute("aria-invalid", baseValid && !deductionsAllowed);
+    const valid = baseValid && deductionsAllowed;
+    const net = gross - personal - deductions.value;
+    const employerCost = gross + employer + thirteenth + fourteenth;
+    const legalFloor = Math.max(assumptions.sbu, assumptions.sectoralFloor);
+    const complies = salary.value >= legalFloor;
+
+    const outputs = {
+      "#individual-base": salary.value,
+      "#individual-hour-value": hourValue,
+      "#individual-supp-total": supplementary,
+      "#individual-extra-total": extraordinary,
+      "#individual-night-total": night,
+      "#individual-bonus-total": bonus.value,
+      "#individual-gross": gross,
+      "#individual-personal": personal,
+      "#individual-discounts-total": deductions.value,
+      "#individual-employer": employer,
+      "#individual-thirteenth": thirteenth,
+      "#individual-fourteenth": fourteenth,
+      "#individual-employer-cost": employerCost,
+      "#individual-net": net
+    };
+    Object.entries(outputs).forEach(([id, value]) => setIndividualMoney(id, value, valid));
+
+    individualStatus.classList.toggle("is-valid", valid && complies);
+    individualStatus.classList.toggle("is-warning", !valid || !complies);
+    if (!baseValid) {
+      individualStatus.textContent = "Revise los campos marcados: hay valores vacíos o fuera de rango.";
+    } else if (!deductionsAllowed) {
+      individualStatus.textContent = "Los descuentos no pueden superar el ingreso disponible después del IESS personal.";
+    } else if (!complies) {
+      individualStatus.textContent = `Advertencia: el sueldo está por debajo del piso de control de ${currency.format(legalFloor)}.`;
+    } else {
+      individualStatus.textContent = `Cumple el piso de control de ${currency.format(legalFloor)}. Verifique la homologación exacta del cargo en el MDT.`;
+    }
+  }
+
   function updateCalculations() {
     const assumptions = getAssumptions();
     const calculations = rows.map((row) => calculateRow(row, assumptions));
@@ -146,11 +223,14 @@
     $("#validation-message").hidden = allValid && revenue.valid;
     downloadButton.disabled = !(allValid && revenue.valid);
     updateExample(calculations, assumptions);
+    updateIndividualCalculator();
   }
 
   function resetAll() {
     $$('input[data-default]').forEach((input) => { input.value = input.dataset.default; });
     exampleSelect.value = "0";
+    individualRoleSelect.value = "0";
+    loadIndividualRole();
     updateCalculations();
   }
 
@@ -173,12 +253,12 @@
       const source = roles[index];
       const workers = $(".workers-input", row).value;
       const salary = $(".salary-input", row).value;
-      const assumptionLabel = index === 0 ? "Aporte personal IESS" : index === 1 ? "Aporte patronal IESS" : index === 2 ? "SBU 2026" : "";
+      const assumptionLabel = index === 0 ? "Aporte personal IESS" : index === 1 ? "Aporte patronal IESS" : index === 2 ? "SBU 2026" : index === 3 ? "Piso sectorial TIC referencial" : "";
       const assumptionValue = index === 0
         ? assumptions.personalRate.toLocaleString("es-EC", { useGrouping: false, maximumFractionDigits: 4 })
         : index === 1
           ? assumptions.employerRate.toLocaleString("es-EC", { useGrouping: false, maximumFractionDigits: 4 })
-          : index === 2 ? assumptions.sbu : "";
+          : index === 2 ? assumptions.sbu : index === 3 ? assumptions.sectoralFloor : "";
       data.push([source.area, source.role, source.band, workers, salary, `=D${excelRow}*E${excelRow}*$M$2`, `=D${excelRow}*E${excelRow}*$M$3`, `=D${excelRow}*E${excelRow}/12`, `=D${excelRow}*$M$4/12`, `=D${excelRow}*(E${excelRow}+(E${excelRow}*$M$3)+(E${excelRow}/12)+($M$4/12))`, "", assumptionLabel, assumptionValue]);
     });
     const totalRow = rows.length + 2;
@@ -196,9 +276,12 @@
     URL.revokeObjectURL(url);
   }
 
-  $$("input, select").forEach((control) => control.addEventListener("input", updateCalculations));
+  $$(".assumptions input, #payroll-body input, #example-role, #revenue-per-client").forEach((control) => control.addEventListener("input", updateCalculations));
+  $$("#individual-calculator input").forEach((control) => control.addEventListener("input", updateIndividualCalculator));
+  individualRoleSelect.addEventListener("change", () => { loadIndividualRole(); updateIndividualCalculator(); });
   $("#reset-table").addEventListener("click", resetAll);
   $("#apply-midpoints").addEventListener("click", applyMidpoints);
   downloadButton.addEventListener("click", downloadExcelCsv);
+  loadIndividualRole();
   updateCalculations();
 })();
